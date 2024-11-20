@@ -1,0 +1,27 @@
+create database gst_invoice;
+use gst_invoice;
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    price DECIMAL(10, 2),
+    gst_percentage DECIMAL(5, 2)
+);
+
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    user_name VARCHAR(100),
+    phone VARCHAR(15),
+    address TEXT,
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending', 'shipped') DEFAULT 'pending',
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+INSERT INTO products (name, price, gst_percentage) VALUES
+('Product A', 100.00, 18.00),
+('Product B', 200.00, 12.00),
+('Product C', 150.00, 5.00),
+('Product D', 80.00, 28.00),
+('Product E', 50.00, 0.00);
